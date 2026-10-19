@@ -1,0 +1,9 @@
+{
+  "name": "button",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ui/button/src",
+  "prefix": "hlm",
+  "projectType": "library",
+  "tags": [],
+  "targets": {}
+}

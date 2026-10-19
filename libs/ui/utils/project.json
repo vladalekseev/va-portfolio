@@ -1,0 +1,9 @@
+{
+  "name": "utils",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ui/utils/src",
+  "prefix": "hlm",
+  "projectType": "library",
+  "tags": [],
+  "targets": {}
+}
