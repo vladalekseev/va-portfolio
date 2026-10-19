@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { HlmButton } from '@spartan-ng/helm/button';
+import { MatButton } from '@angular/material/button';
 import { portfolio } from '../../content/portfolio';
 
 @Component({
   selector: 'app-home',
-  imports: [HlmButton],
+  imports: [MatButton],
   templateUrl: './home.html',
   styleUrl: './home.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

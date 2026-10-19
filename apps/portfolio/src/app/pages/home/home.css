@@ -97,10 +97,9 @@ h1 {
 }
 .hero-link {
   margin-top: 2rem;
-  border-radius: 99px;
-  padding: 1.4rem 1.5rem;
-  gap: 2rem;
-  font-size: 0.8rem;
+}
+.hero-link span {
+  margin-left: 2rem;
 }
 .hero-art {
   aspect-ratio: 1;
