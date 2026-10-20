@@ -20,7 +20,7 @@
             "input": "apps/portfolio/public"
           }
         ],
-        "styles": ["apps/portfolio/src/styles.css"],
+        "styles": ["apps/portfolio/src/styles.scss"],
         "server": "apps/portfolio/src/main.server.ts",
         "outputMode": "static"
       },
@@ -50,6 +50,9 @@
     "serve": {
       "continuous": true,
       "executor": "@angular/build:dev-server",
+      "options": {
+        "proxyConfig": "apps/portfolio/proxy.conf.json"
+      },
       "defaultConfiguration": "development",
       "configurations": {
         "production": {

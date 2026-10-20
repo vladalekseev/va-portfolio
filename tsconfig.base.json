@@ -13,8 +13,8 @@
     "strict": true,
     "skipLibCheck": true,
     "paths": {
-      "@spartan-ng/helm/button": ["./libs/ui/button/src/index.ts"],
-      "@spartan-ng/helm/utils": ["./libs/ui/utils/src/index.ts"]
+      "@portfolio/api": ["./libs/api/src/index.ts"],
+      "@portfolio/api/server": ["./libs/api/src/server.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"]

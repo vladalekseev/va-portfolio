@@ -1,0 +1,88 @@
+@use '@angular/material' as mat;
+
+html {
+  color-scheme: light;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$green-palette,
+        theme-type: light,
+      ),
+      typography: (
+        'Helvetica Neue',
+        Helvetica,
+        Arial,
+        sans-serif,
+      ),
+      density: 0,
+    )
+  );
+  @include mat.theme-overrides(
+    (
+      primary: #24261f,
+      on-primary: #f7f6f2,
+      surface: #f7f6f2,
+      on-surface: #24261f,
+      on-surface-variant: #66685e,
+      outline-variant: #dcded3,
+    )
+  );
+
+  --paper: var(--mat-sys-surface);
+  --ink: var(--mat-sys-on-surface);
+  --muted-ink: var(--mat-sys-on-surface-variant);
+  --line: var(--mat-sys-outline-variant);
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+a {
+  color: inherit;
+}
+::selection {
+  background: #d6ddbb;
+  color: var(--ink);
+}
+:focus-visible {
+  outline: 2px solid #667143;
+  outline-offset: 5px;
+}
+section[id] {
+  scroll-margin-top: 2rem;
+}
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 50;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1rem;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
