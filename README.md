@@ -48,6 +48,10 @@ bun run e2e
 
 On Linux CI, use `bunx playwright install --with-deps chromium`. The included GitHub Actions workflow installs the pinned toolchain and runs these checks. Set `BASE_URL` to run browser tests against an existing deployment instead of starting the local preview server.
 
+`bun install` sets up Husky: pre-commit checks formatting and runs lint and type checks for affected projects, and commit messages must follow [Conventional Commits](https://www.conventionalcommits.org/).
+
+Agent workflow and hook setup are documented in [CLAUDE.md](CLAUDE.md) and [AGENTS.md](AGENTS.md). Hooks require Bash and `jq`, plus Python 3.9+ for the Codex patch adapter. Run `python3 .claude/hooks/test_secret_file_guard.py` after changing the credential-path guard.
+
 ## Project layout
 
 ```text

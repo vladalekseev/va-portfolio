@@ -1,0 +1,32 @@
+# Keep the normal sandbox; command exceptions live in rules/project.rules.
+# Hooks reuse .claude/hooks so both agents enforce the same checks.
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[features]
+hooks = true
+
+[[hooks.PreToolUse]]
+matcher = "^(Bash|Read)$"
+
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = 'bash "$(git rev-parse --show-toplevel)/.claude/hooks/secret-file-guard.sh"'
+timeout = 10
+
+[[hooks.PostToolUse]]
+matcher = "^apply_patch$"
+
+[[hooks.PostToolUse.hooks]]
+type = "command"
+command = 'python3 "$(git rev-parse --show-toplevel)/.codex/hooks/post-tool-use.py"'
+timeout = 120
+
+[mcp_servers.nx-mcp]
+command = "npx"
+args = [ "nx", "mcp" ]
+
+# Best practices and docs search only: the workspace tools need angular.json, which Nx doesn't use.
+[mcp_servers.angular-cli]
+command = "bunx"
+args = [ "ng", "mcp", "--read-only" ]

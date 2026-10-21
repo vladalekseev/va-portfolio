@@ -1,0 +1,15 @@
+# Only GitHub reads get automatic network access outside the sandbox.
+prefix_rule(pattern = ["gh", "pr", "view"], decision = "allow")
+prefix_rule(pattern = ["gh", "pr", "list"], decision = "allow")
+prefix_rule(pattern = ["gh", "pr", "checks"], decision = "allow")
+prefix_rule(pattern = ["gh", "run", "view"], decision = "allow")
+prefix_rule(pattern = ["gh", "run", "list"], decision = "allow")
+
+# Match the force-push denies from the Claude configuration.
+prefix_rule(
+    pattern = ["git", "push", ["--force", "-f"]],
+    decision = "forbidden",
+    justification = "Push follow-up commits without rewriting remote history.",
+    match = ["git push --force origin main", "git push -f origin main"],
+    not_match = ["git push origin main"],
+)

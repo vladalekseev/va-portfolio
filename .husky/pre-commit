@@ -1,0 +1,4 @@
+#!/bin/sh
+# Affected projects only; CI runs the full `bun run check`.
+bun run format:check
+bunx nx affected -t lint typecheck
