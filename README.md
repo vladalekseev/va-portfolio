@@ -55,8 +55,9 @@ Agent workflow and hook setup are documented in [CLAUDE.md](CLAUDE.md) and [AGEN
 ## Project layout
 
 ```text
+api/trpc/[trpc].ts              # Vercel Function entry for the tRPC API
 apps/
-  api/                          # Optional local tRPC HTTP server
+  api/                          # Local tRPC HTTP server for development
   portfolio/
     public/                     # Images, favicon, and future résumé
     src/app/
@@ -68,7 +69,8 @@ apps/
 libs/api/
   src/index.ts                  # Type-only API contract for browser consumers
   src/lib/router.ts             # tRPC procedures
-  src/server.ts                 # Server-only HTTP adapter
+  src/server.ts                 # Server-only HTTP and Fetch adapters
+vercel.json                     # Vercel build, output and routing settings
 ```
 
 Edit `apps/portfolio/src/app/content/portfolio.ts` to add your name, introduction, projects, social links, and email. Contact links appear when an email is set. The homepage still uses local content; the optional API currently exposes only a health query. Update the page title and social metadata in `apps/portfolio/src/index.html` when the final content is ready.
@@ -101,17 +103,17 @@ export class ApiStatus {
 }
 ```
 
-Add future data queries in `libs/api/src/lib/router.ts`; the client infers their inputs and results from `AppRouter`. Add runtime input validation when introducing procedures that accept input. Import only types from `@portfolio/api` in browser code; `@portfolio/api/server` is reserved for the API host. No requests are made just by injecting the client, and no API is needed during the current build or prerender.
+Add future data queries in `libs/api/src/lib/router.ts`; the client infers their inputs and results from `AppRouter`. Add runtime input validation when introducing procedures that accept input. Import only types from `@portfolio/api` in browser code; `@portfolio/api/server` is reserved for the API hosts. No requests are made just by injecting the client, and no API is needed during the current build or prerender.
 
 The client defaults to `/api/trpc`. Override `TRPC_API_URL` in `app.config.ts` for a separately hosted API, and configure that server's CORS policy if it is on another origin. Future server-side queries need an absolute API URL and an API reachable during rendering; Angular's HTTP transfer cache does not automatically cache the tRPC client's fetch requests.
 
-## Static deployment
+## Deployment (Vercel)
 
-`bun run build` produces `dist/apps/portfolio/browser`. Deploy that directory to a static host, including Cloudflare Workers Static Assets. The app uses Angular's `outputMode: static`; no running Node or Bun server is required in production. Server bootstrap files are used only during prerendering. The current single-page app sends unknown client-side routes back to `/`.
+The site and the API deploy together as one Vercel project, configured in `vercel.json`. Vercel runs `bun install --frozen-lockfile` and `bun run build`, then serves `dist/apps/portfolio/browser` as static files. The app uses Angular's `outputMode: static`; server bootstrap files are used only during prerendering. Paths outside `/api/` fall back to `index.html`, so unknown client-side routes return to `/`.
 
-Hosting is not provisioned by this repository. Once a domain is chosen, add canonical and Open Graph URLs and configure the host's fallback behavior before publication.
+`api/trpc/[trpc].ts` serves `/api/trpc/*` as a Vercel Function on the Node.js runtime, through `handleApiRequest` (the tRPC Fetch adapter) from `@portfolio/api/server`. It imports the router by relative path because Vercel's function bundler does not resolve tsconfig path aliases. Production requests stay on the same origin, so `TRPC_API_URL` keeps its default. The development proxy and `apps/api` are not deployed.
 
-Static hosting does not run the tRPC API, and the development proxy is not included in production output. Before enabling live queries, deploy the API separately and route `/api/trpc/*` to it, or configure an absolute API URL. The shared router can be hosted with another [tRPC adapter](https://trpc.io/docs/server/adapters), including a Fetch adapter for an edge runtime.
+To connect the repository, import it in Vercel and keep the Root Directory at the repository root; `vercel.json` overrides the framework preset and build settings. Once a domain is chosen, add canonical and Open Graph URLs before publication.
 
 ## Adding AnalogJS later
 

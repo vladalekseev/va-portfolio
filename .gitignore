@@ -57,3 +57,5 @@ vitest.config.*.timestamp*
 __screenshots__/
 test-results/
 playwright-report/
+
+.vercel

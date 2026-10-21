@@ -15,7 +15,7 @@
     "typecheck": {
       "executor": "nx:run-commands",
       "cache": true,
-      "inputs": ["default", "^default"],
+      "inputs": ["default", "^default", "{workspaceRoot}/api/**/*"],
       "options": {
         "command": "tsc -p apps/api/tsconfig.json --noEmit"
       }

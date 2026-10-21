@@ -53,11 +53,11 @@ Nx projects: `portfolio` (Angular app), `portfolio-e2e` (Playwright, desktop + P
 **tRPC split.** `tsconfig.base.json` defines two path aliases with different purposes:
 
 - `@portfolio/api` → `libs/api/src/index.ts`. Exports **only** `type AppRouter`. This is the only form browser code may import, and it must stay a type-only import.
-- `@portfolio/api/server` → `libs/api/src/server.ts`. The router and the standalone HTTP adapter (`basePath: '/api/trpc/'`). Only `apps/api` and the API tests may import it.
+- `@portfolio/api/server` → `libs/api/src/server.ts`. The router, the standalone HTTP adapter for local development (`createApiServer`, `basePath: '/api/trpc/'`), and the Fetch adapter for Vercel (`handleApiRequest`, `endpoint: '/api/trpc'`). Only `apps/api`, the Vercel entry `api/trpc/[trpc].ts` (by relative path, since Vercel's bundler ignores tsconfig aliases) and the API tests may import it.
 
 Add procedures in `libs/api/src/lib/router.ts`; the client infers their types from `AppRouter`. Add runtime input validation for any procedure that takes input. On the Angular side, `src/app/data-access/trpc.ts` provides the injection tokens `TRPC_CLIENT` (a vanilla tRPC client with `httpBatchLink`) and `TRPC_API_URL` (default `/api/trpc`; override it in `app.config.ts`). Injecting the client must not trigger any request, and a spec checks this. Nothing calls the API during build or prerender yet. Any future server-side query would need an absolute URL and a reachable API, and Angular's HTTP transfer cache does not cover tRPC's fetch requests.
 
-**Deployment.** Static hosting only; the dev proxy and the API are not part of the production output. Live API queries would require deploying the router separately (any tRPC adapter, e.g. Fetch for edge runtimes) and routing `/api/trpc/*` to it. Before going public, the page title, social metadata, and canonical/Open Graph URLs in `src/index.html` still need real values.
+**Deployment.** One Vercel project on the free Hobby plan, configured in `vercel.json`: the prerendered site is served from `dist/apps/portfolio/browser`, paths outside `/api/` fall back to `index.html`, and `api/trpc/[trpc].ts` serves `/api/trpc/*` as a Node.js Vercel Function. `apps/api` typechecks that entry; `apps/api` itself and the dev proxy are not deployed. Before going public, the page title, social metadata, and canonical/Open Graph URLs in `src/index.html` still need real values.
 
 ## Conventions
 
