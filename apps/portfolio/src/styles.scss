@@ -1,30 +1,47 @@
 @use '@angular/material' as mat;
+@use '@fontsource-variable/plus-jakarta-sans';
+
+$font-stack: (
+  'Plus Jakarta Sans Variable',
+  'Helvetica Neue',
+  Arial,
+  sans-serif
+);
+$dusk: #160e0c;
+$sand: #f6ece3;
 
 html {
-  color-scheme: light;
+  color-scheme: dark;
   @include mat.theme(
     (
       color: (
-        primary: mat.$green-palette,
-        theme-type: light,
+        primary: mat.$orange-palette,
+        theme-type: dark,
       ),
-      typography: (
-        'Helvetica Neue',
-        Helvetica,
-        Arial,
-        sans-serif,
-      ),
+      typography: $font-stack,
       density: 0,
     )
   );
   @include mat.theme-overrides(
     (
-      primary: #24261f,
-      on-primary: #f7f6f2,
-      surface: #f7f6f2,
-      on-surface: #24261f,
-      on-surface-variant: #66685e,
-      outline-variant: #dcded3,
+      primary: #ff5b1f,
+      on-primary: $dusk,
+      surface: $dusk,
+      on-surface: $sand,
+      on-surface-variant: #b9a79b,
+      outline-variant: #3d2c25,
+    )
+  );
+  @include mat.button-overrides(
+    (
+      filled-container-shape: 999px,
+      filled-container-height: 48px,
+      filled-horizontal-padding: 1.4rem,
+      filled-label-text-weight: 650,
+      outlined-container-shape: 999px,
+      outlined-container-height: 48px,
+      outlined-label-text-weight: 650,
+      outlined-outline-color: #5a4238,
     )
   );
 
@@ -32,7 +49,35 @@ html {
   --ink: var(--mat-sys-on-surface);
   --muted-ink: var(--mat-sys-on-surface-variant);
   --line: var(--mat-sys-outline-variant);
+  --raised: #21140f;
+  --sunset: var(--mat-sys-primary);
+  --ember: #c2321a;
+  --glow: #ffb15c;
+  // Full-bleed sections and centred content share one edge, capped at 1440px wide.
+  --gutter: max(
+    clamp(1.25rem, 5vw, 4.5rem),
+    calc((100vw - 1440px) / 2 + 4.5rem)
+  );
   scroll-behavior: smooth;
+}
+
+// Pills that sit on the sunset gradient, where the brand orange would vanish.
+.button-light {
+  @include mat.button-overrides(
+    (
+      filled-container-color: $sand,
+      filled-label-text-color: $dusk,
+    )
+  );
+}
+
+.button-dusk {
+  @include mat.button-overrides(
+    (
+      filled-container-color: $dusk,
+      filled-label-text-color: $sand,
+    )
+  );
 }
 
 *,
@@ -40,34 +85,79 @@ html {
 *::after {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: $font-stack;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
+
 h1,
 h2,
 h3,
 p {
   margin: 0;
 }
+
+h2 {
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
 a {
   color: inherit;
 }
+
 ::selection {
-  background: #d6ddbb;
-  color: var(--ink);
+  background: var(--sunset);
+  color: $dusk;
 }
+
 :focus-visible {
-  outline: 2px solid #667143;
-  outline-offset: 5px;
+  outline: 2px solid var(--glow);
+  outline-offset: 4px;
 }
+
 section[id] {
   scroll-margin-top: 2rem;
 }
+
+.section-label {
+  color: var(--sunset);
+  font-size: 1rem;
+  font-weight: 650;
+  margin-bottom: 1rem;
+}
+
+// Round arrow badge at the end of call-to-action pills.
+.cta-arrow {
+  width: 30px;
+  height: 30px;
+  margin: 0 -0.9rem 0 0.75rem;
+  display: inline-grid;
+  place-content: center;
+  border-radius: 50%;
+  background: var(--sunset);
+  color: $dusk;
+  vertical-align: middle;
+}
+
+.button-dusk .cta-arrow {
+  background: $sand;
+}
+
 .skip-link {
   position: fixed;
   top: 1rem;
@@ -78,9 +168,11 @@ section[id] {
   padding: 0.75rem 1rem;
   transform: translateY(-200%);
 }
+
 .skip-link:focus {
   transform: translateY(0);
 }
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

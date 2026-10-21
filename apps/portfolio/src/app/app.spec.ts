@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { appRoutes } from './app.routes';
+import { portfolio } from './content/portfolio';
 
 describe('Portfolio routing', () => {
   beforeEach(() =>
@@ -12,7 +13,7 @@ describe('Portfolio routing', () => {
     const harness = await RouterTestingHarness.create('/');
     expect(
       harness.routeNativeElement?.querySelector('main h1')?.textContent,
-    ).toContain('A place for what’s next.');
+    ).toContain(portfolio.role);
   });
 
   it('returns unknown URLs to the single-page portfolio', async () => {

@@ -1,0 +1,66 @@
+:host {
+  display: block;
+}
+
+/* Tucks under the banner's rounded edge, like a second layer of the horizon. */
+.skills {
+  margin-top: -48px;
+  padding: calc(48px + 2.5rem) var(--gutter) 2.75rem;
+  display: grid;
+  grid-template-columns: minmax(140px, 0.6fr) 3fr;
+  gap: 2rem;
+  align-items: start;
+  border-radius: 0 0 48px 48px;
+  background: var(--raised);
+}
+
+h2 {
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: 0;
+  line-height: 1.4;
+  max-width: 10ch;
+}
+
+.groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.75rem 2.5rem;
+}
+
+h3 {
+  color: var(--muted-ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+li {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+@media (max-width: 767px) {
+  .skills {
+    grid-template-columns: 1fr;
+    border-radius: 0 0 32px 32px;
+    margin-top: -32px;
+    padding-top: calc(32px + 2rem);
+  }
+
+  h2 {
+    max-width: none;
+  }
+}

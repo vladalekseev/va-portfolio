@@ -1,0 +1,40 @@
+<header class="site-header">
+  <a class="wordmark" href="#top" aria-label="Portfolio home">
+    <span class="brand-mark" aria-hidden="true">v.</span>
+    {{ name() }}
+  </a>
+
+  <button
+    #menuButton
+    matButton="outlined"
+    class="menu-toggle"
+    type="button"
+    aria-controls="main-navigation"
+    [attr.aria-expanded]="menuOpen()"
+    (click)="menuOpen.set(!menuOpen())"
+    (keydown.escape)="closeMenu()"
+  >
+    {{ menuOpen() ? 'Close menu' : 'Open menu' }}
+  </button>
+
+  <nav
+    id="main-navigation"
+    tabindex="-1"
+    aria-label="Main navigation"
+    [class.is-open]="menuOpen()"
+    (keydown.escape)="closeMenu(); menuButton.focus()"
+  >
+    <a href="#about" (click)="closeMenu()">About</a>
+    <a href="#experience" (click)="closeMenu()">Experience</a>
+    <a href="#work" (click)="closeMenu()">Work</a>
+    @if (contact(); as link) {
+    <a
+      matButton="filled"
+      class="button-light contact-pill"
+      [href]="link.href"
+      (click)="closeMenu()"
+      >Get in touch<app-cta-arrow
+    /></a>
+    }
+  </nav>
+</header>

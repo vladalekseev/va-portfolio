@@ -64,6 +64,7 @@ apps/
       content/portfolio.ts      # Profile, projects, and links
       data-access/trpc.ts        # Injectable typed tRPC client and endpoint
       pages/home/               # Homepage component, template, and styles
+        sections/               # Banner, header, tools, experience, work, contact
       app.routes.ts             # Small routing layer
   portfolio-e2e/                # Production browser checks
 libs/api/
@@ -73,9 +74,9 @@ libs/api/
 vercel.json                     # Vercel build, output and routing settings
 ```
 
-Edit `apps/portfolio/src/app/content/portfolio.ts` to add your name, introduction, projects, social links, and email. Contact links appear when an email is set. The homepage still uses local content; the optional API currently exposes only a health query. Update the page title and social metadata in `apps/portfolio/src/index.html` when the final content is ready.
+Edit `apps/portfolio/src/app/content/portfolio.ts` to add your name, role, introduction, services, skills, experience, projects, social links, email, and an optional banner portrait (place the image in `apps/portfolio/public`). The role, services and experience entries are placeholders. Contact buttons use the email when it is set, otherwise the first social link. The homepage still uses local content; the optional API currently exposes only a health query. Update the page title and social metadata in `apps/portfolio/src/index.html` when the final content is ready.
 
-The [Material theme](https://material.angular.dev/guide/theming) is in `apps/portfolio/src/styles.scss`; page styles are beside the homepage. Import Material components directly from their package entry points as needed. Use Material's Sass theme and component override APIs to customize them.
+The dark, sunset-orange [Material theme](https://material.angular.dev/guide/theming) is in `apps/portfolio/src/styles.scss`; section styles are beside each section component. Import Material components directly from their package entry points as needed. Use Material's Sass theme and component override APIs to customize them.
 
 ## Future data fetching with tRPC
 

@@ -48,7 +48,7 @@ Nx projects: `portfolio` (Angular app), `portfolio-e2e` (Playwright, desktop + P
 
 **Content.** Page copy comes from the typed object in `src/app/content/portfolio.ts`, not from the API. Keep content and page components independent of the routing and build setup: a migration to AnalogJS is planned, and that file and the pages should carry over unchanged.
 
-**Styling.** The Material 3 theme is defined in `src/styles.scss` (`mat.theme` plus `mat.theme-overrides`) and exposes CSS variables (`--paper`, `--ink`, `--muted-ink`, `--line`) on top of `--mat-sys-*` tokens. Import Material components individually (e.g. `MatButton` from `@angular/material/button`). Customize them through Material's Sass theme and override APIs, not by targeting their internals.
+**Styling.** Dark-only, with sunset orange as the brand color. The Material 3 theme is defined in `src/styles.scss` (`mat.theme`, `mat.theme-overrides`, and `mat.button-overrides` for the pill buttons plus the `.button-light`/`.button-dusk` variants) and exposes CSS variables (`--paper`, `--ink`, `--muted-ink`, `--line`, `--raised`, `--sunset`, `--ember`, `--glow`, and `--gutter`, the shared page edge) on top of `--mat-sys-*` tokens. Plus Jakarta Sans is self-hosted via `@fontsource-variable/plus-jakarta-sans`. Each homepage section is its own component under `pages/home/sections/`, which keeps every stylesheet within the per-component budget. Import Material components individually (e.g. `MatButton` from `@angular/material/button`). Customize them through Material's Sass theme and override APIs, not by targeting their internals.
 
 **tRPC split.** `tsconfig.base.json` defines two path aliases with different purposes:
 
