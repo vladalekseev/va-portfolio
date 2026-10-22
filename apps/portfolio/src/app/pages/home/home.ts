@@ -1,19 +1,28 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { portfolio } from '../../content/portfolio';
+import { portfolio, resolveContactLink } from '../../content/portfolio';
+import { ContactBanner } from './sections/contact-banner/contact-banner';
+import { ExperienceTimeline } from './sections/experience-timeline/experience-timeline';
+import { HeroBanner } from './sections/hero-banner/hero-banner';
+import { SiteHeader } from './sections/site-header/site-header';
+import { SkillsStrip } from './sections/skills-strip/skills-strip';
+import { WorkGrid } from './sections/work-grid/work-grid';
 
 @Component({
   selector: 'app-home',
-  imports: [MatButton],
+  imports: [
+    MatButton,
+    SiteHeader,
+    HeroBanner,
+    SkillsStrip,
+    ExperienceTimeline,
+    WorkGrid,
+    ContactBanner,
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {
   protected readonly content = portfolio;
-  protected readonly menuOpen = signal(false);
-
-  protected closeMenu(): void {
-    this.menuOpen.set(false);
-  }
+  protected readonly contact = resolveContactLink(portfolio);
 }

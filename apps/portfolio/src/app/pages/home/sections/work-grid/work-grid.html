@@ -1,0 +1,35 @@
+<section id="work" class="work" aria-labelledby="work-heading">
+  <div class="heading">
+    <p class="section-label">Selected work</p>
+    <h2 id="work-heading">Ideas, made real.</h2>
+  </div>
+
+  <div class="cards">
+    @for (project of projects(); track project.href) {
+    <a class="project-card" [href]="project.href">
+      <div
+        class="visual"
+        aria-hidden="true"
+        [style.--sun-x]="sunPositionFor($index)"
+      >
+        <span>{{ project.title }}</span>
+      </div>
+      <p class="category">{{ project.category }}</p>
+      <h3>{{ project.title }}</h3>
+      <p class="description">{{ project.description }}</p>
+    </a>
+    }
+    <div class="project-card is-upcoming">
+      <div
+        class="visual"
+        aria-hidden="true"
+        [style.--sun-x]="sunPositionFor(projects().length)"
+      ></div>
+      <p class="category">In the making</p>
+      <h3>The next case study</h3>
+      <p class="description">
+        More projects are on their way. Good things take a little time.
+      </p>
+    </div>
+  </div>
+</section>

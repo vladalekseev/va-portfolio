@@ -1,0 +1,101 @@
+/* Floats over the hero banner, which reserves room for it at the top. */
+:host {
+  display: block;
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+  padding: 0 var(--gutter);
+}
+
+.site-header {
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  background: var(--sunset);
+  color: var(--paper);
+  font-size: 1.15rem;
+  font-weight: 800;
+  padding-bottom: 0.15rem;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+}
+
+nav a:not(.contact-pill) {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+nav a:not(.contact-pill):hover {
+  text-decoration: underline;
+  text-decoration-color: var(--sunset);
+  text-underline-offset: 6px;
+}
+
+.contact-pill {
+  margin-left: 0.5rem;
+}
+
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .site-header {
+    min-height: 80px;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    border-radius: 24px;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(12px);
+  }
+
+  nav.is-open {
+    display: flex;
+  }
+
+  nav a:not(.contact-pill) {
+    font-size: 1.1rem;
+  }
+
+  .contact-pill {
+    margin-left: 0;
+  }
+}

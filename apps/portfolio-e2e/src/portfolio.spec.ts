@@ -4,7 +4,8 @@ test('ships readable, prerendered HTML', async ({ request }) => {
   const response = await request.get('/');
   expect(response.ok()).toBeTruthy();
   const html = await response.text();
-  expect(html).toContain('A place for what’s next.');
+  expect(html).toContain('Fast, calm products for the web.');
+  expect(html).toContain('Where I’ve been building');
   expect(html).toContain('Ideas, made real.');
   expect(html).toContain('name="description"');
 });

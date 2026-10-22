@@ -1,0 +1,52 @@
+:host {
+  display: block;
+}
+
+/* Dusk-coloured text: sand on the orange gradient falls below WCAG contrast. */
+.contact {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4.5rem);
+  border-radius: 40px;
+  color: var(--paper);
+  background: linear-gradient(
+    120deg,
+    var(--glow) 0%,
+    var(--sunset) 45%,
+    #f04a1c 100%
+  );
+}
+
+.contact::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  right: -8%;
+  bottom: -60%;
+  width: min(520px, 70vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 230 194 / 0.55), transparent 70%);
+}
+
+h2 {
+  max-width: 14ch;
+  font-size: clamp(2.4rem, 5.5vw, 4.75rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+p {
+  max-width: 38ch;
+  margin: 1.5rem 0 2rem;
+  font-size: 1.05rem;
+  font-weight: 550;
+}
+
+@media (max-width: 767px) {
+  .contact {
+    border-radius: 28px;
+  }
+}

@@ -1,129 +1,50 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
-<div class="page-wrap" id="top">
-  <header class="site-header">
-    <a class="wordmark" href="#top" aria-label="Portfolio home">
-      <span class="brand-mark" aria-hidden="true">v.</span>
-      {{ content.name }}
-    </a>
-
-    <button
-      #menuButton
-      matButton="outlined"
-      class="menu-toggle"
-      type="button"
-      aria-controls="main-navigation"
-      [attr.aria-expanded]="menuOpen()"
-      (click)="menuOpen.set(!menuOpen())"
-      (keydown.escape)="closeMenu()"
-    >
-      {{ menuOpen() ? 'Close menu' : 'Open menu' }}
-    </button>
-
-    <nav
-      id="main-navigation"
-      tabindex="-1"
-      aria-label="Main navigation"
-      [class.is-open]="menuOpen()"
-      (keydown.escape)="closeMenu(); menuButton.focus()"
-    >
-      <a href="#work" (click)="closeMenu()"
-        >Work <span aria-hidden="true">01</span></a
-      >
-      <a href="#about" (click)="closeMenu()"
-        >About <span aria-hidden="true">02</span></a
-      >
-      @if (content.email) {
-      <a [href]="'mailto:' + content.email" (click)="closeMenu()"
-        >Let’s talk ↗</a
-      >
-      }
-    </nav>
-  </header>
+<div id="top" class="top">
+  <app-site-header [name]="content.name" [contact]="contact" />
 
   <main id="main" tabindex="-1">
-    <section class="hero" aria-labelledby="hero-heading">
-      <div class="hero-copy">
-        <p class="eyebrow">
-          <span class="status-dot" aria-hidden="true"></span> A work in progress
-        </p>
-        <h1 id="hero-heading">{{ content.headline }}</h1>
-        <p class="intro">{{ content.introduction }}</p>
-        <a matButton="filled" href="#work" class="hero-link"
-          >Explore the work <span aria-hidden="true">↘</span></a
-        >
-      </div>
-      <div class="hero-art" aria-hidden="true">
-        <div class="art-orbit orbit-one"></div>
-        <div class="art-orbit orbit-two"></div>
-        <div class="art-orbit orbit-three"></div>
-        <span class="art-caption">Always becoming.</span>
-        <span class="art-index">001 / ∞</span>
-      </div>
-      <div class="hero-footnote">
-        <span>Curiosity → Craft → Creation</span
-        ><span>Scroll to explore ↓</span>
-      </div>
-    </section>
+    <app-hero-banner [content]="content" />
+    <app-skills-strip [groups]="content.skills" />
 
-    <section id="work" class="work-section" aria-labelledby="work-heading">
-      <div class="section-heading">
-        <p class="eyebrow">01 / Selected work</p>
-        <h2 id="work-heading">Ideas, made real.</h2>
-      </div>
-      @for (project of content.projects; track project.href) {
-      <a class="project-row" [href]="project.href">
-        <span class="project-category">{{ project.category }}</span>
+    <div class="page-wrap">
+      <section id="about" class="about" aria-labelledby="about-heading">
         <div>
-          <h3>{{ project.title }}</h3>
-          <p>{{ project.description }}</p>
+          <p class="section-label">Behind the work</p>
+          <h2 id="about-heading">Interfaces that stay out of the way</h2>
         </div>
-        <span aria-hidden="true">↗</span>
-      </a>
-      } @empty {
-      <div class="work-placeholder">
-        <span class="placeholder-symbol" aria-hidden="true">✳</span>
-        <div>
-          <h3>The first chapter is coming.</h3>
-          <p>
-            A collection of selected projects will live here. Good things take a
-            little time.
-          </p>
+        <div class="about-copy">
+          <p class="lead">{{ content.about }}</p>
+          @for (link of content.links; track link.href) {
+          <a matButton="outlined" [href]="link.href"
+            >Connect on {{ link.label }}</a
+          >
+          }
         </div>
-        <span class="small-label">In the making</span>
-      </div>
+      </section>
+
+      @if (content.experience.length) {
+      <app-experience-timeline [entries]="content.experience" />
       }
-    </section>
 
-    <section id="about" class="about-section" aria-labelledby="about-heading">
-      <p class="eyebrow">02 / Behind the work</p>
-      <div class="about-copy">
-        <h2 id="about-heading">
-          A little context.<br /><em>A lot of possibility.</em>
-        </h2>
-        <p>{{ content.about }}</p>
-        @for (link of content.links; track link.href) {
-        <a matButton="outlined" [href]="link.href"
-          >Connect on {{ link.label }} ↗</a
-        >
-        } @if (content.email) {
-        <a matButton="outlined" [href]="'mailto:' + content.email"
-          >Let’s start a conversation ↗</a
-        >
-        }
-      </div>
-    </section>
+      <app-work-grid [projects]="content.projects" />
+
+      @if (contact) {
+      <app-contact-banner [contact]="contact" />
+      }
+    </div>
   </main>
 
-  <footer class="site-footer">
+  <footer class="page-wrap site-footer">
     <a class="wordmark" href="#top"
-      ><span class="brand-mark small" aria-hidden="true">v.</span>{{
-      content.name }}</a
+      ><span class="brand-mark" aria-hidden="true">v.</span>{{ content.name
+      }}</a
     >
     <div class="footer-links">
       @for (link of content.links; track link.href) {
-      <a [href]="link.href">{{ link.label }} ↗</a> }
-      <a href="#top">Back to top ↑</a>
+      <a [href]="link.href">{{ link.label }}</a>
+      }
+      <a href="#top">Back to top</a>
     </div>
   </footer>
 </div>
